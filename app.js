@@ -1,59 +1,79 @@
 // app.js
 
-// Authentication module
+// Define constants for authentication
+const AUTH_URL = 'https://gemini.api/auth';
+const CHAT_URL = 'https://gemini.api/chat';
 
-class AuthModule {
-    constructor() {
-        this.isLoggedIn = false;
-        this.user = null;
-    }
-
-    // Load user state from localStorage
-    loadUserState() {
-        const userState = localStorage.getItem('userState');
-        if (userState) {
-            this.user = JSON.parse(userState);
-            this.isLoggedIn = true;
-        }
-    }
-
-    // Save user state to localStorage
-    saveUserState() {
-        localStorage.setItem('userState', JSON.stringify(this.user));
-    }
-
-    // Validate user credentials
-    validateCredentials(username, password) {
-        // Example: Replace with real validation logic.
-        return username === 'testUser' && password === 'testPass';
-    }
-
-    // Login method
-    login(username, password) {
-        if (this.validateCredentials(username, password)) {
-            this.user = { username: username };
-            this.isLoggedIn = true;
-            this.saveUserState();
-            console.log('Login successful!');
-        } else {
-            console.log('Invalid credentials.');
-        }
-    }
-
-    // Logout method
-    logout() {
-        this.user = null;
-        this.isLoggedIn = false;
-        localStorage.removeItem('userState');
-        console.log('Logged out successfully.');
-    }
+// Authentication Module
+async function authenticate(username, password) {
+    const response = await fetch(AUTH_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+    });
+    return response.json();
 }
 
-// Initialize authentication module
-const auth = new AuthModule();
-auth.loadUserState();
+// Chat Module
+async function chatWithGemini(message) {
+    const response = await fetch(CHAT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message })
+    });
+    return response.json();
+}
 
-// Usage Example:
-// auth.login('testUser', 'testPass'); // to log in
-// auth.logout(); // to log out
+// Athkar System
+function displayAthkar() {
+    const athkarList = [
+        'Subhan Allah',
+        'Alhamdulillah',
+        'Allahu Akbar'
+    ];
+    return athkarList;
+}
 
+// Reward System
+let rewards = 0;
+function addReward(points) {
+    rewards += points;
+    localStorage.setItem('rewards', rewards);
+}
+
+// Settings
+const settings = {
+    notifications: true,
+    theme: 'light'
+};
+
+function updateSettings(newSettings) {
+    Object.assign(settings, newSettings);
+    localStorage.setItem('settings', JSON.stringify(settings));
+}
+
+// Navigation
+function navigateTo(module) {
+    console.log(`Navigating to ${module}`);
+    // Implement navigation logic here
+}
+
+// JSInterface support for Sketchware
+window.JSInterface = {
+    authenticate,
+    chatWithGemini,
+    displayAthkar,
+    addReward,
+    updateSettings,
+    navigateTo
+};
+
+// Load persisted data from localStorage
+function loadSavedData() {
+    const savedRewards = localStorage.getItem('rewards');
+    const savedSettings = localStorage.getItem('settings');
+    if (savedRewards) rewards = parseInt(savedRewards);
+    if (savedSettings) Object.assign(settings, JSON.parse(savedSettings));
+}
+
+loadSavedData();
