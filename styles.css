@@ -1,0 +1,25 @@
+.luxury-theme {
+    background-color: #04607C; /* Emerald Green */
+    color: #D3AF57; /* Radiant Gold */
+    font-family: 'Arial', sans-serif;
+    text-align: right; /* For RTL support */
+}
+
+.header, .footer {
+    background-color: #D3AF57; /* Radiant Gold */
+    color: #04607C; /* Emerald Green */
+    padding: 20px;
+}
+
+.navbar {
+    background-color: #04607C; /* Emerald Green */
+    color: #D3AF57; /* Radiant Gold */
+}
+
+.button {
+    background-color: #D3AF57; /* Radiant Gold */
+    color: #04607C; /* Emerald Green */
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
