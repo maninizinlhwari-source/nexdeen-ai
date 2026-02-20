@@ -1,25 +1,109 @@
-.luxury-theme {
-    background-color: #04607C; /* Emerald Green */
-    color: #D3AF57; /* Radiant Gold */
-    font-family: 'Arial', sans-serif;
-    text-align: right; /* For RTL support */
+:root {
+    --emerald-green: #50C878;
+    --gold: #FFD700;
+    --dark-bg: #121212;
+    --light-bg: #ffffff;
+    --text-color: #333;
+    --dark-text-color: #F5F5F5;
+    --light-text-color: #000;
 }
 
-.header, .footer {
-    background-color: #D3AF57; /* Radiant Gold */
-    color: #04607C; /* Emerald Green */
+body {
+    font-family: Arial, sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.light-mode {
+    background-color: var(--light-bg);
+    color: var(--light-text-color);
+}
+
+body.dark-mode {
+    background-color: var(--dark-bg);
+    color: var(--dark-text-color);
+}
+
+.header {
+    background-color: var(--emerald-green);
+    color: var(--light-text-color);
     padding: 20px;
-}
-
-.navbar {
-    background-color: #04607C; /* Emerald Green */
-    color: #D3AF57; /* Radiant Gold */
+    text-align: center;
 }
 
 .button {
-    background-color: #D3AF57; /* Radiant Gold */
-    color: #04607C; /* Emerald Green */
+    background-color: var(--gold);
     border: none;
-    padding: 10px 15px;
+    color: var(--dark-text-color);
+    padding: 10px 20px;
     cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: var(--emerald-green);
+}
+
+.chat {
+    background-color: var(--light-bg);
+    padding: 15px;
+    border: 1px solid var(--emerald-green);
+}
+
+.chat-message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+.chat-message.user {
+    background-color: var(--emerald-green);
+    color: #fff;
+}
+
+.chat-message.other {
+    background-color: var(--gold);
+    color: #333;
+}
+
+.athkar {
+    font-size: 1.2em;
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid var(--gold);
+}
+
+.settings {
+    padding: 15px;
+    border: 1px solid var(--emerald-green);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: var(--light-bg);
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid var(--emerald-green);
+    width: 80%;
+}
+
+@media (max-width: 600px) {
+    .header {
+        font-size: 1.5em;
+    }
+
+    .chat {
+        font-size: 0.9em;
+    }
 }
